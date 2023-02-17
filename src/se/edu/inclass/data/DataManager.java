@@ -39,6 +39,7 @@ public class DataManager {
     }
 
     private ArrayList readFile() throws IOException {
+        // these are guard clauses
         if (!dataFile.exists()) {
             throw new FileNotFoundException();
         }
@@ -46,6 +47,7 @@ public class DataManager {
             System.out.println("empty file");
             throw new IOException();
         }
+        // this is the happy path
         ArrayList<String> dataItems = (ArrayList) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
 
         return dataItems;
@@ -57,7 +59,8 @@ public class DataManager {
             ArrayList<String> dataItems = readFile();
             taskList = parse(dataItems);
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace(); BAD practice, don't need to do explicitly
+            System.out.println("File access issue. Please check");
         }
         return taskList;
     }
